@@ -5,8 +5,8 @@ const path = require('path');
 const bodyParser = require('body-parser');
 
 //loads in local imports
-const {mongoose} = require('./db/mongoose');
-const {User} = require('./models/user');
+const {mongoose} = require('./server/db/mongoose');
+const {User} = require('./server/models/user');
 
 const {MongoClient, ObjectID} = require('mongodb');
 
@@ -24,7 +24,7 @@ MongoClient.connect('mongodb://localhost:27017/ShadowGab', { useNewUrlParser: tr
 //creates a new express app
 const app = express();
 
-//middleware 
+//middleware
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -33,7 +33,16 @@ app.use(bodyParser.json());
           ROUTES
 ---------------------------*/
 
+app.get('/', (req, res) => {
+  res.render('./public/index.html');
+});
+
+app.get('/signup', (req, res) => {
+  res.render('./public/signup.html');
+});
+
 app.post('/users', (req, res) => {
+  console.log(req.body);
   let user = new User({
     screenname: req.body.screenname,
     password: req.body.password
@@ -44,6 +53,8 @@ app.post('/users', (req, res) => {
   }, (e) => {
     res.status(400).send(e);
   });
+
+  res.redirect('/');
 });
 
 app.listen(3000, () => {

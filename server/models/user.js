@@ -4,44 +4,31 @@ const mongoose = require('mongoose');
 // const _ = require('lodash');
 // const bcrypt = require('bcryptjs');
 
-// const UserSchema = new mongoose.Schema({
-//   screenName: {
-//     required: true,
-//     trim: true,
-//     type: String,
-//     minlength: 1,
-//     unique: true,
-//   },
-//   password: {
-//     type: String,
-//     require: true,
-//     minlength: 6
-//   },
-//   tokens: [{
-//     access: {
-//       type: String,
-//       required: true
-//     },
-//     token: {
-//       type: String,
-//       required: true
-//     }
-//   }]
-// });
-
-const User = mongoose.model('User', {
+const UserSchema = new mongoose.Schema({
   screenname: {
     required: true,
     trim: true,
     type: String,
     minlength: 1,
-    unique: true
+    unique: true,
   },
   password: {
     type: String,
     require: true,
     minlength: 6
-  }
+  },
+  // tokens: [{
+  //   access: {
+  //     type: String,
+  //     required: true
+  //   },
+  //   token: {
+  //     type: String,
+  //     required: true
+  //   }
+  //}]
 });
+
+const User = mongoose.model('User', UserSchema);
 
 module.exports = {User};
