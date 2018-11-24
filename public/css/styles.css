@@ -18,7 +18,8 @@ h3 {
 }
 
 #loginButton,
-#signupButton {
+#signupButton,
+button {
   border: none;
   background: rgba(53,22,36,1);
   color: white;
@@ -28,7 +29,8 @@ h3 {
 }
 
 #loginButton:hover,
-#signupButton:hover {
+#signupButton:hover,
+button:hover {
   border: none;
   background: rgba(53,22,36,0.8);
   color: white;
@@ -91,12 +93,12 @@ h3 {
   overflow-y: scroll;
   width: 260px;
   height: 100vh;
-  background: -moz-linear-gradient(125deg, rgba(39,107,130,1) 0%, rgba(49,84,129,1) 100%); /* ff3.6+ */
-  background: -webkit-gradient(linear, left top, right bottom, color-stop(0%, rgba(49,84,129,1)), color-stop(100%, rgba(39,107,130,1))); /* safari4+,chrome */
-  background: -webkit-linear-gradient(125deg, rgba(39,107,130,1) 0%, rgba(49,84,129,1) 100%); /* safari5.1+,chrome10+ */
-  background: -o-linear-gradient(125deg, rgba(39,107,130,1) 0%, rgba(49,84,129,1) 100%); /* opera 11.10+ */
-  background: -ms-linear-gradient(125deg, rgba(39,107,130,1) 0%, rgba(49,84,129,1) 100%); /* ie10+ */
-  background: linear-gradient(325deg, rgba(39,107,130,1) 0%, rgba(49,84,129,1) 100%); /* w3c */
+  background: -moz-linear-gradient(125deg, rgba(53,22,36,0.6) 0%, rgba(46,30,51,1) 100%); /* ff3.6+ */
+  background: -webkit-gradient(linear, left top, right bottom, color-stop(0%, rgba(53,22,36,0.8)), color-stop(100%, rgba(46,30,51,1))); /* safari4+,chrome */
+  background: -webkit-linear-gradient(125deg, rgba(53,22,36,0.8) 0%, rgba(46,30,51,1) 100%); /* safari5.1+,chrome10+ */
+  background: -o-linear-gradient(125deg, rgba(53,22,36,0.8) 0%, rgba(46,30,51,1) 100%); /* opera 11.10+ */
+  background: -ms-linear-gradient(125deg, rgba(53,22,36,0.8) 0%, rgba(46,30,51,1) 100%); /* ie10+ */
+  background: linear-gradient(325deg, rgba(53,22,36,0.8) 0%, rgba(46,30,51,1) 100%); /* w3c */
 }
 
 .chat__sidebar h3 {

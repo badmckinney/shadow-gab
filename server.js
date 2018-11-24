@@ -4,8 +4,6 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const session = require('express-session');
-const passport = require('passport');
-const LocalStrategy = require('passport-local').Strategy;
 const bcrypt = require('bcryptjs');
 const socketIO = require('socket.io');
 const http = require('http');
@@ -14,7 +12,6 @@ const {MongoClient, ObjectID} = require('mongodb');
 //loads in local imports
 const {mongoose} = require('./server/db/mongoose');
 const {User} = require('./server/models/user');
-const authenticate = require('./server/middleware/passport');
 const {generateMessage, generateLocationMessage} = require('./server/utils/message');
 const {isRealString} = require('./server/utils/validation');
 const {Users} = require('./server/utils/users');
@@ -39,37 +36,11 @@ const app = express();
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-app.use(passport.initialize());
-app.use(passport.session());
 app.use(session({
   secret:'secret',
   saveUninitialized: false,
   resave: false
 }));
-
-passport.use(new LocalStrategy({
-  usernameField: 'screenname',
-  passwordField: 'password'
-}, (screenname, password, done) => {
-  console.log(screenname, password);
-  User.findOne({ screenname: screenname }, (err, doc) => {
-    if (err) {
-      done(err)
-    } else if (doc) {
-      let valid = bcrypt.compareSync(password, doc.password);
-
-      if (valid) {
-        done(null, {
-          screenname: doc.screenname,
-          password: doc.password
-        })
-      } else {
-        done(null, false)
-      }
-    }
-  })
-}));
-
 
 const server = http.createServer(app);
 const io = socketIO(server);
@@ -116,52 +87,49 @@ app.post('/users', (req, res) => {
   });
 });
 
-app.post('/login',passport.authenticate('local', {
-  failureRedirect:'/',
-  successRedirect:'/chat',
-  failureFlash: true
-}) , (req, res) => {
-  res.send('Success');
+app.post('/login', (req, res) => {
+  console.log(req.body);
+  User.findOne({ screenname: req.body.screenname }, (err,doc) => {
+    if (err) {
+      res.status(500).send('error occured');
+    } else if (!doc) {
+      res.status(500).send('Account doesn\'t exist. Please sign up.');
+    } else if (doc) {
+      let valid = bcrypt.compareSync(req.body.password, doc.password);
 
-  io.on('connection', (socket) => {
-    console.log('New user connected');
+      if (!valid) {
+        res.status(500).send('Incorrect Password');
+      } else if (valid) {
+        io.on('connection', (socket) => {
+          console.log('New user connected');
 
-    socket.on('join', (params, callback) => {
-      if (!isRealString(params.name) || !isRealString(params.room)) {
-        return callback('Name and room name are required');
+          socket.on('join', (params, callback) => {
+            if (!isRealString(req.body.screenname) || !isRealString(req.body.room)) {
+              return callback('Name and room name are required');
+            }
+
+            socket.join(req.body.room);
+            users.removeUser(socket.id);
+            users.addUser(socket.id, req.body.screenname, req.body.room);
+
+            io.to(req.body.room).emit('updateUserList', users.fetchUserList(req.body.room));
+            socket.emit('newMessage', generateMessage('Admin', 'Welcome to the chat app'));
+            socket.broadcast.to(req.body.room).emit('newMessage', generateMessage('Admin', `${req.body.screenname} has joined`));
+            callback();
+          });
+        });
       }
+    }
+  });
 
-      socket.join(params.room);
-      users.removeUser(socket.id);
-      users.addUser(socket.id, params.name, params.room);
-
-      io.to(params.room).emit('updateUserList', users.fetchUserList(params.room));
-      socket.emit('newMessage', generateMessage('Admin', 'Welcome to the chat app'));
-      socket.broadcast.to(params.room).emit('newMessage', generateMessage('Admin', `${params.name} has joined`));
-      callback();
-    });
+  res.sendFile(path.join(__dirname + '/public/chat.html'));
 });
 
 /*---------------------------
             CHAT
 ---------------------------*/
-// io.on('connection', (socket) => {
-//   console.log('New user connected');
-//
-//   socket.on('join', (params, callback) => {
-//     if (!isRealString(params.name) || !isRealString(params.room)) {
-//       return callback('Name and room name are required');
-//     }
-//
-//     socket.join(params.room);
-//     users.removeUser(socket.id);
-//     users.addUser(socket.id, params.name, params.room);
-//
-//     io.to(params.room).emit('updateUserList', users.fetchUserList(params.room));
-//     socket.emit('newMessage', generateMessage('Admin', 'Welcome to the chat app'));
-//     socket.broadcast.to(params.room).emit('newMessage', generateMessage('Admin', `${params.name} has joined`));
-//     callback();
-//   });
+io.on('connection', (socket) => {
+  console.log('New user connected');
 
   socket.on('createMessage', (message, callback) => {
     var user = users.fetchUser(socket.id);
