@@ -17,7 +17,7 @@ h3 {
   font-size: 1.5rem;
 }
 
-button,
+#loginButton,
 #signupButton {
   border: none;
   background: rgba(53,22,36,1);
@@ -27,7 +27,7 @@ button,
   transition: background .3s ease;
 }
 
-button:hover,
+#loginButton:hover,
 #signupButton:hover {
   border: none;
   background: rgba(53,22,36,0.8);
@@ -35,7 +35,7 @@ button:hover,
   padding: 10px;
 }
 
-button:disabled,
+#loginButton:disabled,
 #signupButton:disabled {
   cursor: default;
   background: #698ea5;
