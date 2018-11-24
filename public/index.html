@@ -33,5 +33,10 @@
         <p>Don't have an account?</p><a href="/signup">Sign up here</a>
       </div>
     </div>
+    <script>
+      if ( window.history.replaceState ) {
+        window.history.replaceState( null, null, window.location.href );
+      }
+    </script>
   </body>
 </html>

@@ -58,7 +58,7 @@ app.get('/', (req, res) => {
   }
 });
 
-//Moved this middleware after GET '/' request to give my request higher priority 
+//Moved this middleware after GET '/' request to give my request higher priority
 app.use(express.static(__dirname + '/public'));
 
 app.get('/signup', (req, res) => {
@@ -107,6 +107,7 @@ app.post('/users', (req, res) => {
 
 app.post('/chat', (req, res) => {
   console.log(req.body);
+
   User.findOne({ screenname: req.body.screenname }, (err,doc) => {
     if (err) {
       res.status(500).send('error occured');
@@ -133,6 +134,7 @@ app.post('/chat', (req, res) => {
             users.removeUser(socket.id);
             users.addUser(socket.id, req.body.screenname, req.body.room);
 
+            if (req.session.screenname)
             io.to(req.body.room).emit('updateUserList', users.fetchUserList(req.body.room));
             socket.emit('newMessage', generateMessage('Admin', 'Welcome to the chat app'));
             socket.broadcast.to(req.body.room).emit('newMessage', generateMessage('Admin', `${req.body.screenname} has joined`));
