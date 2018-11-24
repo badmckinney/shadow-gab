@@ -1,7 +1,6 @@
 //loads in libraries
 const express = require('express');
 const path = require('path');
-const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const session = require('express-session');
 const bcrypt = require('bcryptjs');
@@ -37,7 +36,7 @@ app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(session({
-  secret:'secret',
+  secret:'OJ did it',
   saveUninitialized: false,
   resave: false
 }));
@@ -87,7 +86,7 @@ app.post('/users', (req, res) => {
   });
 });
 
-app.post('/login', (req, res) => {
+app.post('/chat', (req, res) => {
   console.log(req.body);
   User.findOne({ screenname: req.body.screenname }, (err,doc) => {
     if (err) {

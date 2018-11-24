@@ -21,7 +21,7 @@ h3 {
 #signupButton,
 button {
   border: none;
-  background: rgba(53,22,36,1);
+  background: rgba(15, 32, 39, 1);
   color: white;
   cursor: pointer;
   padding: 10px;
@@ -32,7 +32,7 @@ button {
 #signupButton:hover,
 button:hover {
   border: none;
-  background: rgba(53,22,36,0.8);
+  background: rgba(15, 32, 39, 0.5);
   color: white;
   padding: 10px;
 }
@@ -49,16 +49,16 @@ button:hover {
   height: 100vh;
   width: 100vw;
   justify-content: center;
-  background: -moz-linear-gradient(125deg, rgba(46,30,51,1) 0%, rgba(40,30,51,1) 100%); /* ff3.6+ */
-  background: -webkit-gradient(linear, left top, right bottom, color-stop(0%, rgba(49,84,129,1)), color-stop(100%, rgba(39,107,130,1))); /* safari4+,chrome */
-  background: -webkit-linear-gradient(125deg, rgba(46,30,51,1) 0%, rgba(40,30,51,1) 100%); /* safari5.1+,chrome10+ */
-  background: -o-linear-gradient(125deg, rgba(46,30,51,1) 0%, rgba(40,30,51,1) 100%); /* opera 11.10+ */
-  background: -ms-linear-gradient(125deg, rgba(46,30,51,1) 0%, rgba(40,30,51,1) 100%); /* ie10+ */
-  background: linear-gradient(325deg, rgba(46,30,51,1) 0%, rgba(40,30,51,1) 100%); /* w3c */
+  background: -moz-linear-gradient(125deg, rgba(15, 32, 39  ,1) 0%, rgba(32, 58, 67, 1) 50%, rgba(44, 83, 100, 1) 100%); /* ff3.6+ */
+  background: -webkit-gradient(linear, top, bottom, color-stop(0%, rgba(15, 32, 39  ,1)), color-stop(50%, rgba(32, 58, 67, 1)) color-stop(100%, rgba(44, 83, 100, 1))); /* safari4+,chrome */
+  background: -webkit-linear-gradient(125deg, rgba(15, 32, 39  ,1) 0%, rgba(32, 58, 67, 1) 50%, rgba(44, 83, 100, 1) 100%); /* safari5.1+,chrome10+ */
+  background: -o-linear-gradient(125deg, rgba(15, 32, 39  ,1) 0%, rgba(32, 58, 67, 1) 50%, rgba(44, 83, 100, 1) 100%); /* opera 11.10+ */
+  background: -ms-linear-gradient(125deg, rgba(15, 32, 39  ,1) 0%, rgba(32, 58, 67, 1) 50%, rgba(44, 83, 100, 1) 100%); /* ie10+ */
+  background: linear-gradient(125deg, rgba(15, 32, 39  ,1) 0%, rgba(32, 58, 67, 1) 50%, rgba(44, 83, 100, 1) 100%); /* w3c */
 }
 
 .centered-form__form {
-  background: rgba(250, 250, 250, 0.3);
+  background: rgba(250, 250, 250, 0.15);
   border: 0px solid #e1e1e1;
   border-radius: 5px;
   padding: 0px 20px;
@@ -93,12 +93,7 @@ button:hover {
   overflow-y: scroll;
   width: 260px;
   height: 100vh;
-  background: -moz-linear-gradient(125deg, rgba(53,22,36,0.6) 0%, rgba(46,30,51,1) 100%); /* ff3.6+ */
-  background: -webkit-gradient(linear, left top, right bottom, color-stop(0%, rgba(53,22,36,0.8)), color-stop(100%, rgba(46,30,51,1))); /* safari4+,chrome */
-  background: -webkit-linear-gradient(125deg, rgba(53,22,36,0.8) 0%, rgba(46,30,51,1) 100%); /* safari5.1+,chrome10+ */
-  background: -o-linear-gradient(125deg, rgba(53,22,36,0.8) 0%, rgba(46,30,51,1) 100%); /* opera 11.10+ */
-  background: -ms-linear-gradient(125deg, rgba(53,22,36,0.8) 0%, rgba(46,30,51,1) 100%); /* ie10+ */
-  background: linear-gradient(325deg, rgba(53,22,36,0.8) 0%, rgba(46,30,51,1) 100%); /* w3c */
+  background: rgba(15, 32, 39, 1);
 }
 
 .chat__sidebar h3 {
@@ -112,11 +107,12 @@ button:hover {
 }
 
 .chat__sidebar li {
-  background: #e6eaee;
-  border: 1px solid #e1e1e1;
+  background: rgba(230, 234, 238, 0.15);
+  border: 1px solid rgba(225, 225, 225, 0.1);
   border-radius: 5px;
   padding: 10px;
   margin: 10px;
+  color: #e6eaee;
 }
 
 .chat__main {
@@ -130,6 +126,12 @@ button:hover {
   flex-grow: 1;
   overflow-y: scroll;
   -webkit-overflow-scrolling: touch;
+  background: -moz-linear-gradient(0deg, rgba(15, 32, 39  ,1) 0%, rgba(32, 58, 67, 1) 50%, rgba(44, 83, 100, 1) 100%); /* ff3.6+ */
+  background: -webkit-gradient(linear, top, bottom, color-stop(0%, rgba(15, 32, 39  ,1)), color-stop(50%, rgba(32, 58, 67, 1)) color-stop(100%, rgba(44, 83, 100, 1))); /* safari4+,chrome */
+  background: -webkit-linear-gradient(0deg, rgba(15, 32, 39  ,1) 0%, rgba(32, 58, 67, 1) 50%, rgba(44, 83, 100, 1) 100%); /* safari5.1+,chrome10+ */
+  background: -o-linear-gradient(0deg, rgba(15, 32, 39  ,1) 0%, rgba(32, 58, 67, 1) 50%, rgba(44, 83, 100, 1) 100%); /* opera 11.10+ */
+  background: -ms-linear-gradient(0deg, rgba(15, 32, 39  ,1) 0%, rgba(32, 58, 67, 1) 50%, rgba(44, 83, 100, 1) 100%); /* ie10+ */
+  background: linear-gradient(0deg, rgba(15, 32, 39  ,1) 0%, rgba(32, 58, 67, 1) 50%, rgba(44, 83, 100, 1) 100%); /* w3c */
 }
 
 .chat__footer {
@@ -161,12 +163,18 @@ button:hover {
 }
 
 .message {
+  display: table;
   padding: 10px;
+  background: rgba(230, 234, 238, 0.1);
+  border-radius: 10px;
+  margin: 10px;
+  color: rgba(230, 234, 238, 1);
 }
 
 .message__title {
   display: flex;
   margin-bottom: 5px;
+  color: rgba(230, 234, 238, 0.5);
 }
 
 .message__title h4 {
