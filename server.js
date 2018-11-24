@@ -32,7 +32,6 @@ const port = process.env.PORT || 3000;
 const app = express();
 
 //middleware config
-app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(session({
@@ -50,14 +49,34 @@ const users = new Users();
 ---------------------------*/
 
 app.get('/', (req, res) => {
-  res.render('index.html');
+  if (req.session.screenname) {
+    console.log(req.session);
+    res.redirect('/chat');
+  } else {
+    console.log(req.session);
+    res.sendFile(path.join(__dirname + '/public/index.html'));
+  }
 });
 
+//Moved this middleware after GET '/' request to give my request higher priority 
+app.use(express.static(__dirname + '/public'));
+
 app.get('/signup', (req, res) => {
-  res.sendFile(path.join(__dirname + '/public/signup.html'));
+  if (req.session.screenname) {
+    console.log(req.session);
+    res.redirect('/chat');
+  } else {
+    console.log(req.session);
+    res.sendFile(path.join(__dirname + '/public/signup.html'));
+  }
 });
 
 app.get('/chat', (req, res) => {
+  if (!req.session.screenname) {
+    console.log(req.session);
+    res.redirect('/');
+  }
+
   res.sendFile(path.join(__dirname + '/public/chat.html'));
 });
 
@@ -99,6 +118,9 @@ app.post('/chat', (req, res) => {
       if (!valid) {
         res.status(500).send('Incorrect Password');
       } else if (valid) {
+        req.session.screenname = req.body.screenname;
+        req.session.password = req.body.password;
+        console.log(req.session);
         io.on('connection', (socket) => {
           console.log('New user connected');
 
