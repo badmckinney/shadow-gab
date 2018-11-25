@@ -43,6 +43,16 @@ button:hover {
   background: #698ea5;
 }
 
+#logout {
+  display: inline;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+#logoutLink {
+  text-decoration: none;
+}
+
 .centered-form {
   display: flex;
   align-items: center;
@@ -93,7 +103,7 @@ button:hover {
   overflow-y: scroll;
   width: 260px;
   height: 100vh;
-  background: rgba(15, 32, 39, 1);
+  background: rgba(7, 16, 19  ,1);
 }
 
 .chat__sidebar h3 {
@@ -126,12 +136,12 @@ button:hover {
   flex-grow: 1;
   overflow-y: scroll;
   -webkit-overflow-scrolling: touch;
-  background: -moz-linear-gradient(0deg, rgba(15, 32, 39  ,1) 0%, rgba(32, 58, 67, 1) 50%, rgba(44, 83, 100, 1) 100%); /* ff3.6+ */
-  background: -webkit-gradient(linear, top, bottom, color-stop(0%, rgba(15, 32, 39  ,1)), color-stop(50%, rgba(32, 58, 67, 1)) color-stop(100%, rgba(44, 83, 100, 1))); /* safari4+,chrome */
-  background: -webkit-linear-gradient(0deg, rgba(15, 32, 39  ,1) 0%, rgba(32, 58, 67, 1) 50%, rgba(44, 83, 100, 1) 100%); /* safari5.1+,chrome10+ */
-  background: -o-linear-gradient(0deg, rgba(15, 32, 39  ,1) 0%, rgba(32, 58, 67, 1) 50%, rgba(44, 83, 100, 1) 100%); /* opera 11.10+ */
-  background: -ms-linear-gradient(0deg, rgba(15, 32, 39  ,1) 0%, rgba(32, 58, 67, 1) 50%, rgba(44, 83, 100, 1) 100%); /* ie10+ */
-  background: linear-gradient(0deg, rgba(15, 32, 39  ,1) 0%, rgba(32, 58, 67, 1) 50%, rgba(44, 83, 100, 1) 100%); /* w3c */
+  background: -moz-linear-gradient(0deg, rgba(7, 16, 19  ,1) 0%, rgba(32, 58, 67, 1) 70%, rgba(44, 83, 100, 1) 100%); /* ff3.6+ */
+  background: -webkit-gradient(linear, top, bottom, color-stop(0%, rgba(7, 16, 19  ,1)), color-stop(70%, rgba(32, 58, 67, 1)) color-stop(100%, rgba(44, 83, 100, 1))); /* safari4+,chrome */
+  background: -webkit-linear-gradient(0deg, rgba(7, 16, 19  ,1) 0%, rgba(32, 58, 67, 1) 70%, rgba(44, 83, 100, 1) 100%); /* safari5.1+,chrome10+ */
+  background: -o-linear-gradient(0deg, rgba(7, 16, 19  ,1) 0%, rgba(32, 58, 67, 1) 70%, rgba(44, 83, 100, 1) 100%); /* opera 11.10+ */
+  background: -ms-linear-gradient(0deg, rgba(7, 16, 19  ,1) 0%, rgba(32, 58, 67, 1) 70%, rgba(44, 83, 100, 1) 100%); /* ie10+ */
+  background: linear-gradient(0deg, rgba(7, 16, 19  ,1) 0%, rgba(32, 58, 67, 1) 70%, rgba(44, 83, 100, 1) 100%); /* w3c */
 }
 
 .chat__footer {
@@ -174,7 +184,7 @@ button:hover {
 .message__title {
   display: flex;
   margin-bottom: 5px;
-  color: rgba(230, 234, 238, 0.5);
+  color: rgba(7, 16, 19, 0.7);
 }
 
 .message__title h4 {

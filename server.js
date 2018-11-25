@@ -80,6 +80,13 @@ app.get('/chat', (req, res) => {
   res.sendFile(path.join(__dirname + '/public/chat.html'));
 });
 
+app.get('/logout', (req, res) => {
+  req.session.screenname = "";
+  req.session.password = "";
+
+  res.redirect('/');  
+});
+
 app.post('/users', (req, res) => {
   console.log(req.body);
   User.findOne({ screenname: req.body.screenname }, (err, doc) => {
