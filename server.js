@@ -82,19 +82,18 @@ app.get('/chat', (req, res) => {
 
 app.get('/logout', (req, res) => {
   req.session.screenname = "";
-  req.session.password = "";
 
-  res.redirect('/');  
+  res.redirect('/');
 });
 
 app.post('/users', (req, res) => {
   console.log(req.body);
   User.findOne({ screenname: req.body.screenname }, (err, doc) => {
     if (err) {
-      res.status(500).send('error occured')
+      res.status(500).send('error occured');
     } else if (doc) {
       console.log(doc)
-      res.status(500).send('Screenname already taken')
+      res.status(500).send('Screenname already taken');
     } else {
       let user = new User({
         screenname: req.body.screenname,
@@ -113,45 +112,45 @@ app.post('/users', (req, res) => {
 });
 
 app.post('/chat', (req, res) => {
-  console.log(req.body);
+  if (!req.session.screenname) {
+    console.log(req.body);
 
-  User.findOne({ screenname: req.body.screenname }, (err,doc) => {
-    if (err) {
-      res.status(500).send('error occured');
-    } else if (!doc) {
-      res.status(500).send('Account doesn\'t exist. Please sign up.');
-    } else if (doc) {
-      let valid = bcrypt.compareSync(req.body.password, doc.password);
+    User.findOne({ screenname: req.body.screenname }, (err,doc) => {
+      if (err) {
+        res.status(500).send('error occured');
+      } else if (!doc) {
+        res.status(500).send('Account doesn\'t exist. Please sign up.');
+      } else if (doc) {
+        let valid = bcrypt.compareSync(req.body.password, doc.password);
 
-      if (!valid) {
-        res.status(500).send('Incorrect Password');
-      } else if (valid) {
-        req.session.screenname = req.body.screenname;
-        req.session.password = req.body.password;
-        console.log(req.session);
-        io.on('connection', (socket) => {
-          console.log('New user connected');
+        if (!valid) {
+          res.status(500).send('Incorrect Password');
+        } else if (valid) {
+          req.session.screenname = req.body.screenname;
+          console.log(req.session);
+          io.on('connection', (socket) => {
+            console.log('New user connected');
 
-          socket.on('join', (params, callback) => {
-            if (!isRealString(req.body.screenname) || !isRealString(req.body.room)) {
-              return callback('Name and room name are required');
-            }
+            socket.on('join', (params, callback) => {
+              if (!isRealString(req.body.screenname) || !isRealString(req.body.room)) {
+                return callback('Name and room name are required');
+              }
 
-            socket.join(req.body.room);
-            users.removeUser(socket.id);
-            users.addUser(socket.id, req.body.screenname, req.body.room);
+              socket.join(req.body.room);
+              users.removeUser(socket.id);
+              users.addUser(socket.id, req.body.screenname, req.body.room);
 
-            if (req.session.screenname)
-            io.to(req.body.room).emit('updateUserList', users.fetchUserList(req.body.room));
-            socket.emit('newMessage', generateMessage('Admin', 'Welcome to the chat app'));
-            socket.broadcast.to(req.body.room).emit('newMessage', generateMessage('Admin', `${req.body.screenname} has joined`));
-            callback();
+              io.to(req.body.room).emit('updateUserList', users.fetchUserList(req.body.room));
+              socket.emit('newMessage', generateMessage('Admin', `Welcome to ${req.body.room} room`));
+              socket.broadcast.to(req.body.room).emit('newMessage', generateMessage('Admin', `${req.body.screenname} has joined`));
+              callback();
+
+            });
           });
-        });
+        }
       }
-    }
-  });
-
+    });
+  }
   res.sendFile(path.join(__dirname + '/public/chat.html'));
 });
 
@@ -159,7 +158,6 @@ app.post('/chat', (req, res) => {
             CHAT
 ---------------------------*/
 io.on('connection', (socket) => {
-  console.log('New user connected');
 
   socket.on('createMessage', (message, callback) => {
     var user = users.fetchUser(socket.id);

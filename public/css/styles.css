@@ -18,6 +18,11 @@ h3 {
 }
 
 #loginButton,
+#signupButon {
+  font-weight: bold;
+}
+
+#loginButton,
 #signupButton,
 button {
   border: none;
@@ -47,6 +52,7 @@ button:hover {
   display: inline;
   cursor: pointer;
   margin-left: 10px;
+  font-weight: bold;
 }
 
 #logoutLink {
@@ -59,12 +65,12 @@ button:hover {
   height: 100vh;
   width: 100vw;
   justify-content: center;
-  background: -moz-linear-gradient(125deg, rgba(15, 32, 39  ,1) 0%, rgba(32, 58, 67, 1) 50%, rgba(44, 83, 100, 1) 100%); /* ff3.6+ */
+  background: -moz-linear-gradient(125deg, rgba(15, 32, 39  ,1) 0%, rgba(32, 58, 67, 1) 60%, rgba(44, 83, 100, 1) 100%); /* ff3.6+ */
   background: -webkit-gradient(linear, top, bottom, color-stop(0%, rgba(15, 32, 39  ,1)), color-stop(50%, rgba(32, 58, 67, 1)) color-stop(100%, rgba(44, 83, 100, 1))); /* safari4+,chrome */
-  background: -webkit-linear-gradient(125deg, rgba(15, 32, 39  ,1) 0%, rgba(32, 58, 67, 1) 50%, rgba(44, 83, 100, 1) 100%); /* safari5.1+,chrome10+ */
-  background: -o-linear-gradient(125deg, rgba(15, 32, 39  ,1) 0%, rgba(32, 58, 67, 1) 50%, rgba(44, 83, 100, 1) 100%); /* opera 11.10+ */
-  background: -ms-linear-gradient(125deg, rgba(15, 32, 39  ,1) 0%, rgba(32, 58, 67, 1) 50%, rgba(44, 83, 100, 1) 100%); /* ie10+ */
-  background: linear-gradient(125deg, rgba(15, 32, 39  ,1) 0%, rgba(32, 58, 67, 1) 50%, rgba(44, 83, 100, 1) 100%); /* w3c */
+  background: -webkit-linear-gradient(125deg, rgba(15, 32, 39  ,1) 0%, rgba(32, 58, 67, 1) 60%, rgba(44, 83, 100, 1) 100%); /* safari5.1+,chrome10+ */
+  background: -o-linear-gradient(125deg, rgba(15, 32, 39  ,1) 0%, rgba(32, 58, 67, 1) 60%, rgba(44, 83, 100, 1) 100%); /* opera 11.10+ */
+  background: -ms-linear-gradient(125deg, rgba(15, 32, 39  ,1) 0%, rgba(32, 58, 67, 1) 60%, rgba(44, 83, 100, 1) 100%); /* ie10+ */
+  background: linear-gradient(125deg, rgba(15, 32, 39  ,1) 0%, rgba(32, 58, 67, 1) 60%, rgba(44, 83, 100, 1) 100%); /* w3c */
 }
 
 .centered-form__form {
@@ -104,6 +110,7 @@ button:hover {
   width: 260px;
   height: 100vh;
   background: rgba(7, 16, 19  ,1);
+  margin-right: -15px;
 }
 
 .chat__sidebar h3 {
@@ -123,6 +130,7 @@ button:hover {
   padding: 10px;
   margin: 10px;
   color: #e6eaee;
+  font-weight: bold;
 }
 
 .chat__main {
@@ -130,6 +138,7 @@ button:hover {
   flex-direction: column;
   height: 100vh;
   width: 100%;
+  overflow-x: hidden;
 }
 
 .chat__messages {
@@ -142,6 +151,7 @@ button:hover {
   background: -o-linear-gradient(0deg, rgba(7, 16, 19  ,1) 0%, rgba(32, 58, 67, 1) 70%, rgba(44, 83, 100, 1) 100%); /* opera 11.10+ */
   background: -ms-linear-gradient(0deg, rgba(7, 16, 19  ,1) 0%, rgba(32, 58, 67, 1) 70%, rgba(44, 83, 100, 1) 100%); /* ie10+ */
   background: linear-gradient(0deg, rgba(7, 16, 19  ,1) 0%, rgba(32, 58, 67, 1) 70%, rgba(44, 83, 100, 1) 100%); /* w3c */
+  margin-right: -15px;
 }
 
 .chat__footer {
