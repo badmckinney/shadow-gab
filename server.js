@@ -4,7 +4,11 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const session = require('express-session');
 const bcrypt = require('bcryptjs');
-const socketIO = require('socket.io');
+const socketIO = require('socket.io')({
+  transports: [                    
+    'websocket'
+]
+});
 const http = require('http');
 const {MongoClient, ObjectID} = require('mongodb');
 
@@ -14,17 +18,6 @@ const {User} = require('./server/models/user');
 const {generateMessage, generateLocationMessage} = require('./server/utils/message');
 const {isRealString} = require('./server/utils/validation');
 const {Users} = require('./server/utils/users');
-
-//connect to db
-// MongoClient.connect('mongodb://admin:password1@ds217864.mlab.com:17864/shadow-gab', { useNewUrlParser: true }, (err, client) => {
-//   if (err) {
-//     return console.log('Unable to connect to database server');
-//   }
-//   console.log('Connected to database server');
-//   const db = client.db('ShadowGab');
-
-//   client.close();
-// });
 
 const port = process.env.PORT || 3000;
 
@@ -41,8 +34,9 @@ app.use(session({
 }));
 
 const server = http.createServer(app);
-const io = socketIO(server);
+const io = socketIO.listen(server);
 const users = new Users();
+
 
 /*---------------------------
           ROUTES
@@ -112,7 +106,6 @@ app.post('/users', (req, res) => {
 });
 
 app.post('/chat', (req, res) => {
-  if (!req.session.screenname) {
     console.log(req.body);
 
     User.findOne({ screenname: req.body.screenname }, (err,doc) => {
@@ -121,37 +114,42 @@ app.post('/chat', (req, res) => {
       } else if (!doc) {
         res.status(500).send('Account doesn\'t exist. Please sign up.');
       } else if (doc) {
+        console.log(doc);
         let valid = bcrypt.compareSync(req.body.password, doc.password);
 
         if (!valid) {
           res.status(500).send('Incorrect Password');
         } else if (valid) {
-          req.session.screenname = req.body.screenname;
-          
-          io.on('connection', (socket) => {
-            console.log('New user connected');
+          if (!req.session.screenname) {
+            res.sendFile(path.join(__dirname + '/public/chat.html'));
+            io.on('connection', (socket) => {
+              console.log('New user connected');
 
-            socket.on('join', (params, callback) => {
-              if (!isRealString(req.body.screenname) || !isRealString(req.body.room)) {
-                return callback('Name and room name are required');
-              }
+              socket.on('join', (params, callback) => {
+                if (!isRealString(req.body.screenname) || !isRealString(req.body.room)) {
+                  return callback('Name and room name are required');
+                }
 
-              socket.join(req.body.room);
-              users.removeUser(socket.id);
-              users.addUser(socket.id, req.body.screenname, req.body.room);
+                socket.join(req.body.room);
+                users.removeUser(socket.id);
+                users.addUser(socket.id, req.body.screenname, req.body.room);
 
-              io.to(req.body.room).emit('updateUserList', users.fetchUserList(req.body.room));
-              socket.emit('newMessage', generateMessage('Admin', `Welcome to ${req.body.room} room`));
-              socket.broadcast.to(req.body.room).emit('newMessage', generateMessage('Admin', `${req.body.screenname} has joined`));
-              callback();
+                io.to(req.body.room).emit('updateUserList', users.fetchUserList(req.body.room));
+                console.log(req.session.screenname);
+                if (!req.session.screenname) {
+                  socket.emit('newMessage', generateMessage('Admin', `Welcome to ${req.body.room} room`));
+                  socket.broadcast.to(req.body.room).emit('newMessage', generateMessage('Admin', `${req.body.screenname} has joined`));
+                }
+                req.session.screenname = req.body.screenname;
+                console.log(req.session.screenname);  
+                callback();
 
+              });
             });
-          });
+          }
         }
       }
     });
-  }
-  res.sendFile(path.join(__dirname + '/public/chat.html'));
 });
 
 /*---------------------------
