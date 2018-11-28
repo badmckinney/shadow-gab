@@ -16,15 +16,15 @@ const {isRealString} = require('./server/utils/validation');
 const {Users} = require('./server/utils/users');
 
 //connect to db
-MongoClient.connect('mongodb://localhost:27017/ShadowGab', { useNewUrlParser: true }, (err, client) => {
-  if (err) {
-    return console.log('Unable to connect to database server');
-  }
-  console.log('Connected to database server');
-  const db = client.db('ShadowGab');
+// MongoClient.connect('mongodb://admin:password1@ds217864.mlab.com:17864/shadow-gab', { useNewUrlParser: true }, (err, client) => {
+//   if (err) {
+//     return console.log('Unable to connect to database server');
+//   }
+//   console.log('Connected to database server');
+//   const db = client.db('ShadowGab');
 
-  client.close();
-});
+//   client.close();
+// });
 
 const port = process.env.PORT || 3000;
 
@@ -36,8 +36,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(session({
   secret:'OJ did it',
-  saveUninitialized: false,
-  resave: false
+  saveUninitialized: true,
+  resave: true
 }));
 
 const server = http.createServer(app);
@@ -127,7 +127,7 @@ app.post('/chat', (req, res) => {
           res.status(500).send('Incorrect Password');
         } else if (valid) {
           req.session.screenname = req.body.screenname;
-          console.log(req.session);
+          
           io.on('connection', (socket) => {
             console.log('New user connected');
 

@@ -11,6 +11,11 @@
 const mongoose = require('mongoose');
 
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost:27017/ShadowGab', { useNewUrlParser: true });
+mongoose.connect('mongodb://admin:password1@ds217864.mlab.com:17864/shadow-gab', { useNewUrlParser: true }, (err) => {
+    if (err) throw err;
+});
 
 module.exports = {mongoose};
+
+// mongodb://admin:password1@ds217864.mlab.com:17864/shadow-gab
+//mongodb://localhost:27017/ShadowGab
