@@ -10,7 +10,7 @@ const socketIO = require('socket.io')({
 ]
 });
 const http = require('http');
-const {MongoClient, ObjectID} = require('mongodb');
+const {MongoClient} = require('mongodb');
 
 //loads in local imports
 const {mongoose} = require('./server/db/mongoose');

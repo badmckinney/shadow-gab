@@ -26,6 +26,7 @@
     </div>
   </div>
 
+  <!-- Template for sending regular messages -->
   <script id="message-template" type="text/template">
     <li class="message">
       <div class="message__title">
@@ -38,6 +39,7 @@
     </li>
   </script>
 
+  <!-- Template for sending location message -->
   <script id="location-message-template" type="text/template">
     <li class="message">
       <div class="message__title">
@@ -52,6 +54,7 @@
     </li>
   </script>
 
+  <!-- Script to prevent form resubmission on page refresh -->
   <script>
     if ( window.history.replaceState ) {
       window.history.replaceState( null, null, window.location.href );

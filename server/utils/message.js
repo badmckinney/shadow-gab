@@ -1,5 +1,6 @@
 const moment = require('moment');
 
+// reusable function for generating a message object
 var generateMessage = (from, text) => {
   return {
     from,
@@ -8,6 +9,7 @@ var generateMessage = (from, text) => {
   }
 };
 
+// reusable function for generating a location message object
 var generateLocationMessage = (from, latitude, longitude) => {
   return {
     from,

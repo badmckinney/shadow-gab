@@ -3,6 +3,7 @@
 // fetchUser(name, room)
 // getUserList(room)
 
+// "Users" class for persisting user data
 class Users {
   constructor () {
     this.users = [];

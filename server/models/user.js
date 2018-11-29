@@ -1,7 +1,8 @@
+// load in dependencies
 const mongoose = require('mongoose');
-// const validator = require('validator');
 const bcrypt = require('bcryptjs');
 
+// schema for users
 const userSchema = new mongoose.Schema({
   screenname: {
     required: true,
@@ -16,14 +17,7 @@ const userSchema = new mongoose.Schema({
   }
 });
 
-// userSchema.methods.hashPassword = function (password) {
-//   return bcrypt.hashSync(password, bcrypt.genSaltSync(10));
-// };
-//
-// userSchema.methods.comparePassword = function (password, hash) {
-//   return bcrypt.compareSync(password, hash);
-// };
-
+// creates a new model based on the above schema
 const User = mongoose.model('User',userSchema);
 
 module.exports = {User};

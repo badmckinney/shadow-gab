@@ -1,5 +1,6 @@
 var socket = io();
 
+//function to enable auto scroll based on a small threshold at the bottom of chat window
 function scrollToBottom () {
   var messages = $('#messages');
   var newMessage = messages.children('li:last-child');
@@ -15,9 +16,8 @@ function scrollToBottom () {
 }
 
 socket.on('connect', function () {
-  var params = $.deparam(window.location.search);
 
-  socket.emit('join', params, function (err) {
+  socket.emit('join', null, function (err) {
     if (err) {
       alert(err);
       window.location.href = '/';
@@ -31,6 +31,8 @@ socket.on('disconnect', function () {
   console.log('Disconnected from server');
 });
 
+//  listens for server to emit updateUserList event, then updates the UI user list by looping over
+//  all users and appending a list item for each. 
 socket.on('updateUserList', function (users) {
   var ul = $('<ul></ul>');
 
@@ -41,8 +43,11 @@ socket.on('updateUserList', function (users) {
   $('#users').html(ul);
 });
 
+// appends new messages to chat window when server emits newMessage event
 socket.on('newMessage', function (message) {
+  //utilizes moment.js to create formatted timestamps for each message
   var formattedTime = moment(message.createdAt).format('h:mm a');
+  // uses moustache.js template (found in chat.html) to render messages
   var template = $('#message-template').html();
   var html = Mustache.render(template, {
       text: message.text,
@@ -67,6 +72,7 @@ socket.on('newLocationMessage', function (message) {
   scrollToBottom();
 });
 
+// emits createMessage event and sends over user input from message text input
 $('#message-form').on('submit', function (e) {
   e.preventDefault();
 
