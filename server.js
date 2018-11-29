@@ -94,13 +94,11 @@ app.post('/users', (req, res) => {
         password: bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(10))
       });
 
-      user.save().then((doc) => {
-        res.send(doc);
+      user.save().then(() => {
+        res.redirect('/');
       }, (e) => {
         res.status(400).send(e);
       });
-
-      res.redirect('/');
     }
   });
 });
