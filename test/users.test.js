@@ -1,5 +1,5 @@
 const expect = require('expect');
-const {Users} = require('./users');
+const { Users } = require('../server/utils/users');
 
 describe('Users', () => {
   var users;
@@ -44,7 +44,7 @@ describe('Users', () => {
     var userId = '50';
     var user = users.removeUser(userId);
 
-    expect(user).toNotExist();
+    expect(user).toBeFalsy();
     expect(users.users.length).toBe(3);
   });
 

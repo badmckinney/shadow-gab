@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jshint hello.js"
   },
   "engines": {
     "node": "10.11.0"
@@ -25,6 +25,7 @@
   },
   "devDependencies": {
     "expect": "^23.6.0",
-    "mocha": "^5.2.0"
+    "mocha": "^5.2.0",
+    "jshint": "^2.6.0"
   }
 }
