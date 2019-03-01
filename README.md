@@ -30,3 +30,6 @@ You can take this application for a test drive by running the `npm start` script
 Tests can be run by using the `npm test` command from the terminal.
 
 ## Screenshots
+
+![Login Screen](./screenshots/login.png "Login Screen")
+![Chat Window](./screenshots/chat.png "Chat Window")
