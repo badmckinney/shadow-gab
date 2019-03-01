@@ -8,7 +8,7 @@ This is a fun project I decided to expand on in order to challenge myself to lea
 
 ## Technologies and Frameworks
 
-*Built with*
+**Built with**
 - Socket.io
 - Express
 - MongoDB

@@ -1,8 +1,10 @@
 const mongoose = require('mongoose');
+const dotenv = require('dotenv').config();
 
 mongoose.Promise = global.Promise;
 
 // connects to hosted database using mongoose
+console.log(process.env);
 mongoose.connect(process.env.MONGO_DB_URI, { useNewUrlParser: true });
 
 // When successfully connected
